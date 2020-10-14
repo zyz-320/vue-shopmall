@@ -9,11 +9,11 @@
     <!-- 六宫格（改自mui） -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/newsList">
           <!-- 此处需要使用绝对路径 -->
           <!-- <img src="../../images/menu1.png" /> -->
           <img src="/images/menu1.png" />
-          <div class="mui-media-body">新闻资讯</div></a
+          <div class="mui-media-body">新闻资讯</div></router-link
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -66,7 +66,7 @@ export default {
     // 获取轮播图图片信息
     getLunbotu() {
       this.$http
-        .get('http://www.liulongbin.top:3005/api/getlunbo')
+        .get('api/getlunbo')
         .then((result) => {
           // console.log(result.body)
           if (result.body.status === 0) {

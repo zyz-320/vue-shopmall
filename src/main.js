@@ -15,17 +15,28 @@ import './lib/mui/css/icons-extra.css'
 // 导入并安装 vue-resource
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
+// 全局设置 Vue-resource 的请求根路径
+Vue.http.options.root = 'http://www.liulongbin.top:3005';
 
 // 按需导入 mint-ui 组件
-import { Header, Swipe, SwipeItem } from 'mint-ui'
+import { Header, Swipe, SwipeItem, Button } from 'mint-ui'
 // 使用 Vue.component 注册按钮组件
 // Vue.component('mybtn', Button)
 Vue.component(Header.name, Header)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
+Vue.component(Button.name, Button)
+
+// 导入日期格式化插件
+import moment from 'moment'
+// 定义全局过滤器
+Vue.filter('dateFormat', function(dateStr, pattern = 'YYYY-MM-DD HH:mm:ss'){
+  return moment(dateStr).format(pattern)
+})
 
 // 显示vue-devtools工具
 // Vue.config.devtools = true
+
 
 var vm = new Vue({
   el: '#app',
