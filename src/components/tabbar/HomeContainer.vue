@@ -17,33 +17,33 @@
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/photoList">
           <img src="/images/menu2.png" />
-          <div class="mui-media-body">图片分享</div></a
+          <div class="mui-media-body">图片分享</div></router-link
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="/home/goodsList">
           <img src="/images/menu3.png" />
-          <div class="mui-media-body">商品购买</div></a
+          <div class="mui-media-body">商品购买</div></router-link
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="/images/menu4.png" />
-          <div class="mui-media-body">留言反馈</div></a
+          <div class="mui-media-body">留言反馈</div></router-link
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="/images/menu5.png" />
-          <div class="mui-media-body">视频专区</div></a
+          <div class="mui-media-body">视频专区</div></router-link
         >
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-        <a href="#">
+        <router-link to="#">
           <img src="/images/menu6.png" />
-          <div class="mui-media-body">联系我们</div></a
+          <div class="mui-media-body">联系我们</div></router-link
         >
       </li>
     </ul>

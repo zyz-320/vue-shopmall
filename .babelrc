@@ -10,5 +10,8 @@
         "style": true
       }
     ]
+  ],
+  "ignore": [
+    "./src/lib/mui/js/*.js"
   ]
 }
