@@ -12,6 +12,9 @@ import PhotoList from './components/photos/PhotoList.vue'
 import PhotoInfo from './components/photos/PhotoInfo.vue'
 // 导入商品列表模块的组件
 import GoodsList from './components/goods/GoodsList.vue'
+import GoodsInfo from './components/goods/GoodsInfo.vue'
+import GoodsDesc from './components/goods/GoodsDesc.vue'
+import GoodsComment from './components/goods/GoodsComment.vue'
 
 var router = new VueRouter({
   // 配置路由规则
@@ -26,6 +29,9 @@ var router = new VueRouter({
     { path: '/home/photoList', component: PhotoList },
     { path: '/home/PhotoInfo/:id', component: PhotoInfo },
     { path: '/home/goodsList', component: GoodsList },
+    { path: '/home/goodsInfo/:id', component: GoodsInfo, name: 'goodsInfo' },
+    { path: '/home/goodsDesc/:id', component: GoodsDesc, name: 'goodsDesc' },
+    { path: '/home/goodsComment/:id', component: GoodsComment, name: 'goodsComment' },
   ],
   // 覆盖默认的路由高亮的类，默认的类叫做 router-link-active
   linkActiveClass: 'mui-active',

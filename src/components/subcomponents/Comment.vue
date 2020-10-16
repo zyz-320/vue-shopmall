@@ -85,6 +85,7 @@ export default {
 .cmt-container {
   h3 {
     font-size: 18px;
+    font-weight: 700;
   }
   hr {
     margin: 6px 0;

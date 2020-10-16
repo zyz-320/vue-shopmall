@@ -1,11 +1,7 @@
 <template>
   <div class="homeContainer">
     <!-- 轮播图 -->
-    <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="item in lunbotuList" :key="item.id">
-        <img :src="item.img" />
-      </mt-swipe-item>
-    </mt-swipe>
+    <swiper :lunbotuList="lunbotuList" :isFull="true"></swiper>
     <!-- 六宫格（改自mui） -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -53,6 +49,8 @@
 <script>
 // 导入 Toast 弹窗组件
 import { Toast } from 'mint-ui'
+// 导入轮播图组件
+import swiper from '../subcomponents/Swiper.vue'
 export default {
   data() {
     return {
@@ -82,28 +80,13 @@ export default {
         })
     },
   },
+  components: {
+    'swiper': swiper,
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.mint-swipe {
-  height: 200px;
-  .mint-swipe-item {
-    &:nth-child(1) {
-      background-color: pink;
-    }
-    &:nth-child(2) {
-      background-color: skyblue;
-    }
-    &:nth-child(3) {
-      background-color: palevioletred;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
 // 取消六宫格的背景颜色
 .mui-grid-view.mui-grid-9 {
   background-color: #fff;
