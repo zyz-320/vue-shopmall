@@ -103,6 +103,11 @@ export default {
     },
     addToShopCar() { // 添加到购物车小球动画
       this.ballFlag = !this.ballFlag
+      // 将商品信息组织成一个对象 { id:商品的id, count: 要购买的数量, price: 商品的单价，selected: false  }
+      // 拼接出一个，要保存到 store 中 car 数组里的 商品信息对象
+      let goods = { id: parseInt(this.id), count: this.selectedCount, price: this.goodsInfo.sell_price, selected: true }
+      // 通过调用 vuex 中 mutations 中的 addToCar(state, goodsInfo) 方法，将商品信息对象添加到 car 数组中
+      this.$store.commit("addToCar", goods)
     },
     // 动画钩子函数
     beforeEnter(el) {
@@ -128,7 +133,7 @@ export default {
     getSelectedCount(count) {
       // 当子组件把选中的数量传递给父组件时，把选中的值保存到 data 上
       this.selectedCount = count
-      console.log("父组件拿到的数量值为： " + this.selectedCount)
+      // console.log("父组件拿到的数量值为： " + this.selectedCount)
     }
   },
   components: {

@@ -2,7 +2,7 @@
   <div class="appContainer">
     <!-- 顶部的 topbar -->
     <mt-header fixed title="黑马程序员-Vue项目">
-      <span slot="left" @click="goBack">
+      <span slot="left" @click="goBack" v-show="flag">
         <mt-button icon="back">返回</mt-button>
       </span>
     </mt-header>
@@ -20,7 +20,7 @@
       </router-link>
       <router-link class="mui-tab-item1" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge" id="badge">0</span>
+          <span class="mui-badge" id="badge">{{ $store.getters.getAllCount }}</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
@@ -35,13 +35,29 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      flag: false, // 是否显示 header 部分的返回按钮
+    }
+  },
+  created() {
+    if(this.$route.path !== '/home'){
+      this.flag = true
+    }
   },
   methods: {
-    goBack() {
+    goBack() { // 点击后退
       this.$router.go(-1)
     },
   },
+  watch: {
+    '$route.path': function(newVal, oldVal){
+      if(newVal === '/home'){
+        this.flag = false
+      }else{
+        this.flag = true 
+      }
+    },
+  }
 }
 </script>
 
