@@ -7,6 +7,9 @@ module.exports = {
   output: {
     path: path.join(__dirname, './dist'),
     filename: 'bundle.js',
+    // 在没有将 index.html 文件打包到 dist 文件夹中的时候
+    // 使用 publicPath 之后，以后文件中只要涉及到 url 相关的文件，都会在查找打包后的文件的路径中加上 'dist/'
+    // publicPath: 'dist/',
   },
   plugins: [
     new HtmlWebpackPlugin({

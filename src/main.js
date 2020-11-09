@@ -163,6 +163,10 @@ var vm = new Vue({
   data: {
     msg: '',
   },
+  // 直接使用 app 组件替代了 #app 这个 div 元素
+  // 或者直接使用如下 template 属性
+  // template: `<app/>`,
+  // components: {app}
   render: (c) => c(app),
   // 挂载路由对象到 vue 实例对象上
   router,
