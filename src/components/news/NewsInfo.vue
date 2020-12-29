@@ -9,7 +9,8 @@
     </p>
     <hr>
     <!-- 内容部分 -->
-    <div class="content" v-html="newsInfo.content">
+    <div class="content"
+         v-html="newsInfo.content">
 
     </div>
     <!-- 评论子组件区域 -->
@@ -29,21 +30,21 @@ export default {
     }
   },
   created() {
-    this.$nextTick(function(){
-        this.getNewsInfo();
+    this.$nextTick(function () {
+      this.getNewsInfo();
     });
   },
   methods: {
     getNewsInfo() {
       this.$http.get('api/getnew/' + this.id).then((result) => {
         // console.log(result.body)
-        if (result.body.status === 0) {
-            // 如果获取数据成功，将数据保存到 newsInfo 数据中
-            this.newsInfo = result.body.message[0]
-          } else {
-            // 如果获取数据失败，则出现一个弹窗
-            Toast('新闻详情信息获取失败')
-          }
+        if (result.data.status === 0) {
+          // 如果获取数据成功，将数据保存到 newsInfo 数据中
+          this.newsInfo = result.data.message[0]
+        } else {
+          // 如果获取数据失败，则出现一个弹窗
+          Toast('新闻详情信息获取失败')
+        }
       })
     },
   },
@@ -70,7 +71,6 @@ export default {
     color: #226aff;
   }
   .content {
-
   }
   hr {
     margin: 8px 0;

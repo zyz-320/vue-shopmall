@@ -1,10 +1,15 @@
 <template>
   <div>
     <!-- 顶部滑动条区域 -->
-    <div id="slider" class="mui-slider">
-      <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+    <div id="slider"
+         class="mui-slider">
+      <div id="sliderSegmentedControl"
+           class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
         <div class="mui-scroll">
-          <a :class="['mui-control-item', item.id == 0 ? 'mui-active' : '']" v-for="item in cates" :key="item.id" @tap="getPhotoListByCateId(item.id)">
+          <a :class="['mui-control-item', item.id == 0 ? 'mui-active' : '']"
+             v-for="item in cates"
+             :key="item.id"
+             @tap="getPhotoListByCateId(item.id)">
             {{ item.title }}
           </a>
         </div>
@@ -12,7 +17,10 @@
     </div>
     <!-- 图片列表区域 -->
     <ul class="photo-list">
-      <router-link v-for="item in list" :key="item.id" :to="'/home/photoInfo/' + item.id" tag="li">
+      <router-link v-for="item in list"
+                   :key="item.id"
+                   :to="'/home/photoInfo/' + item.id"
+                   tag="li">
         <img v-lazy="item.img_url">
         <div class="info">
           <h1 class="info-title">{{ item.title }}</h1>
@@ -23,14 +31,14 @@
   </div>
 </template>
 <script>
-  import { Toast } from 'mint-ui'
+import { Toast } from 'mint-ui'
 // 1.导入 mui 的js文件
 import mui from '../../lib/mui/js/mui.min.js'
 export default {
   data() {
     return {
-     cates: [], // 所有分类数据
-     list: [], // 图片列表数据
+      cates: [], // 所有分类数据
+      list: [], // 图片列表数据
     }
   },
   created() {
@@ -47,75 +55,74 @@ export default {
     getAllCatedory() {
       // 获取所有的图片分类（不包含‘全部’，这个分类，需要手动拼接）
       this.$http
-      .get('api/getimgcategory')
-      .then(result => {
-        if(result.body.status === 0) {
-          // 手动拼接出一个完整的分类数组
-          result.body.message.unshift({ title: '全部', id: 0 })
-          this.cates = result.body.message
-          // this.cates.unshift({ title: '全部', id: 0 })
-        }else{
-          Toast('获取分类信息失败')
-        }
-      })
+        .get('api/getimgcategory')
+        .then(result => {
+          if (result.data.status === 0) {
+            // 手动拼接出一个完整的分类数组
+            result.data.message.unshift({ title: '全部', id: 0 })
+            this.cates = result.data.message
+            // this.cates.unshift({ title: '全部', id: 0 })
+          } else {
+            Toast('获取分类信息失败')
+          }
+        })
     },
     getPhotoListByCateId(cateId) {
       // 获取对应分类的图片信息
       this.$http
-      .get('api/getimages/' + cateId)
-      .then(result => {
-        if(result.body.status === 0){
-          this.list = result.body.message
-        }else{
-          Toast('获取图片信息失败')
-        }
-      })
+        .get('api/getimages/' + cateId)
+        .then(result => {
+          if (result.data.status === 0) {
+            this.list = result.data.message
+          } else {
+            Toast('获取图片信息失败')
+          }
+        })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-  .mui-scroll a:hover, 
-  .mui-scroll a:focus {
-    text-decoration: none;
-  }
-  * {
-    touch-action: pan-y;  /* 使用全局样式样式去掉滑动顶部滑动栏时产生的警告 */
-  }
-  .photo-list {
-    margin: 0;
-    padding: 10px;
-    li {
-      background-color: #ccc;
-      list-style: none;
-      text-align: center;
-      vertical-align: middle;
-      margin: 5px 0;
-      box-shadow: -2px 2px 5px #999;
-      position: relative;
-      img {
-        width: 100%;
+.mui-scroll a:hover,
+.mui-scroll a:focus {
+  text-decoration: none;
+}
+* {
+  touch-action: pan-y; /* 使用全局样式样式去掉滑动顶部滑动栏时产生的警告 */
+}
+.photo-list {
+  margin: 0;
+  padding: 10px;
+  li {
+    background-color: #ccc;
+    list-style: none;
+    text-align: center;
+    vertical-align: middle;
+    margin: 5px 0;
+    box-shadow: -2px 2px 5px #999;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    img[lazy="loading"] {
+      width: 40px;
+      height: 300px;
+      margin: auto;
+    }
+    .info {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      text-align: left;
+      position: absolute;
+      bottom: 0;
+      max-height: 84px;
+      .info-title {
+        font-size: 15px;
       }
-      img[lazy="loading"] {
-        width: 40px;
-        height: 300px;
-        margin: auto;
-      }
-      .info {
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        text-align: left;
-        position: absolute;
-        bottom: 0;
-        max-height: 84px;
-        .info-title {
-          font-size: 15px;
-        }
-        .info-body {
-          font-size: 13px;
-        }
+      .info-body {
+        font-size: 13px;
       }
     }
   }
-
+}
 </style>

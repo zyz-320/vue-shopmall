@@ -1,7 +1,10 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item" v-for="item in goodsList" :key="item.id" @click="goDetail(item.id)">
-      <img :src="item.img_url" >
+    <div class="goods-item"
+         v-for="item in goodsList"
+         :key="item.id"
+         @click="goDetail(item.id)">
+      <img :src="item.img_url">
       <h1 class="title">{{item.title}}</h1>
       <div class="info">
         <p class="price">
@@ -14,7 +17,9 @@
         </p>
       </div>
     </div>
-    <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
+    <mt-button type="danger"
+               size="large"
+               @click="getMore">加载更多</mt-button>
   </div>
 </template>
 <script>
@@ -32,14 +37,14 @@ export default {
   methods: {
     getGoodsList() {
       this.$http
-      .get('api/getgoods?pageindex=' + this.pageindex)
-      .then(result => {
-        if(result.body.status === 0){
-          this.goodsList = this.goodsList.concat(result.body.message)
-        }else{
-          Toast('获取商品信息失败')
-        }
-      })
+        .get('api/getgoods?pageindex=' + this.pageindex)
+        .then(result => {
+          if (result.data.status === 0) {
+            this.goodsList = this.goodsList.concat(result.data.message)
+          } else {
+            Toast('获取商品信息失败')
+          }
+        })
     },
     getMore() { // 获取更多商品信息
       this.pageindex++

@@ -15,6 +15,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './src/index.html'),
       filename: 'index.html',
+      inject: true,
+      favicon: './src/favicon.ico',  //favicon路径
+      // favicon: path.join(__dirname, './src/favicon.ico')
     }),
     new VueLoaderPlugin(),
   ],
@@ -25,6 +28,10 @@ module.exports = {
       { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader'] },
       {
         test: /\.(jpg|gif|jpeg|png|bmp)$/,
+        use: 'url-loader',
+      },
+      {
+        test: /\.ico$/,
         use: 'url-loader',
       },
       { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },

@@ -13,12 +13,19 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './lib/mui/css/mui.css'
 import './lib/mui/css/icons-extra.css'
 // 导入并安装 vue-resource
-import VueResource from 'vue-resource'
-Vue.use(VueResource)
+// import VueResource from 'vue-resource'
+// Vue.use(VueResource)
 // 全局设置 Vue-resource 的请求根路径
-Vue.http.options.root = 'http://www.liulongbin.top:3005'
+// Vue.http.options.root = 'http://www.liulongbin.top:3005'
 // 全局设置 Vue-resource 的 post 请求的表单提交格式 以 application/x-www-form-urlencoded 的 MIME type 提交
-Vue.http.options.emulateJSON = true
+// Vue.http.options.emulateJSON = true
+// 导入 axios
+import axios from 'axios'
+// 配置请求的根路径（这一步要在挂载到原型上之前进行）
+axios.defaults.baseURL = 'http://www.liulongbin.top:3005'
+// 配置公共的 post 的 Content-Type
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+Vue.prototype.$http = axios
 
 /* // 按需导入 mint-ui 组件
 import { Header, Swipe, SwipeItem, Button, Lazyload } from 'mint-ui'

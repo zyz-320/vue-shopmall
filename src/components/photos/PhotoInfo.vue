@@ -9,47 +9,48 @@
     <!-- 缩略图区域 -->
     <mpt-box :id="id"></mpt-box>
     <!-- 图片内容区域 -->
-    <div class="content" v-html="photoInfo.content"></div>
+    <div class="content"
+         v-html="photoInfo.content"></div>
     <!-- 放置一个现成的评论子组件 -->
     <cmt-box :id="id"></cmt-box>
   </div>
 </template>
 <script>
-  // 导入评论子组件
-  import Comment from '../subcomponents/Comment.vue'
-  // 导入缩略图子组件
-  import MiniPhoto from '../subcomponents/MiniPhoto.vue'
+// 导入评论子组件
+import Comment from '../subcomponents/Comment.vue'
+// 导入缩略图子组件
+import MiniPhoto from '../subcomponents/MiniPhoto.vue'
 
-  import { Toast } from 'mint-ui'
-  export default {
-    data() {
-      return {
-        id: this.$route.params.id, // 将url地址中传递过来的id挂载到 id 中
-        photoInfo: {}, // 图片详情信息
-        list: [], // 缩略图的数组
-      }
-    },
-    created() {
-      this.getPhotoInfo()
-    },
-    methods: {
-      getPhotoInfo() {
-        this.$http
+import { Toast } from 'mint-ui'
+export default {
+  data() {
+    return {
+      id: this.$route.params.id, // 将url地址中传递过来的id挂载到 id 中
+      photoInfo: {}, // 图片详情信息
+      list: [], // 缩略图的数组
+    }
+  },
+  created() {
+    this.getPhotoInfo()
+  },
+  methods: {
+    getPhotoInfo() {
+      this.$http
         .get('api/getimageInfo/' + this.id)
         .then(result => {
-          if(result.body.status === 0) {
-            this.photoInfo = result.body.message[0]
-          }else{
+          if (result.data.status === 0) {
+            this.photoInfo = result.data.message[0]
+          } else {
             Toast('获取新闻详情失败')
           }
         })
-      },
     },
-    components: {
-      'cmt-box': Comment,
-      'mpt-box': MiniPhoto,
-    },
-  }
+  },
+  components: {
+    'cmt-box': Comment,
+    'mpt-box': MiniPhoto,
+  },
+}
 </script>
 <style lang="scss" scoped>
 .photolist-container {

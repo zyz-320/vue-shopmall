@@ -1,18 +1,23 @@
 <template>
   <div class="shopcar-container">
-    <div class="mui-card" v-for="(item, i) in goodsInfo" :key="item.id">
+    <div class="mui-card"
+         v-for="(item, i) in goodsInfo"
+         :key="item.id">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <div class="goods-list">
-            <mt-switch v-model="$store.getters.getGoodsSelected[item.id]" @change="selectedChange(item.id, $store.getters.getGoodsSelected[item.id])"></mt-switch>
+            <mt-switch v-model="$store.getters.getGoodsSelected[item.id]"
+                       @change="selectedChange(item.id, $store.getters.getGoodsSelected[item.id])"></mt-switch>
             <img :src="item.thumb_path">
             <div class="info">
               <h1>{{item.title}}</h1>
               <div>
                 <span class="price">￥{{item.sell_price}}</span>
-                <numbox :initCount="$store.getters.getGoodsCount[item.id]" :goodsId="item.id"></numbox>
+                <numbox :initCount="$store.getters.getGoodsCount[item.id]"
+                        :goodsId="item.id"></numbox>
                 <!-- 通过item.id删除car数据中的相关商品信息，通过i删除此页面goodsInfo中的数据，移除这个商品列表 -->
-                <a href="#" @click.prevent="remove(item.id, i)">删除</a>
+                <a href="#"
+                   @click.prevent="remove(item.id, i)">删除</a>
               </div>
             </div>
           </div>
@@ -30,7 +35,7 @@
         </div>
       </div>
     </div>
-    {{$store.state.car}}
+    <!-- {{$store.state.car}} -->
     <!-- <div v-for="item in $store.state.car" :key="item.id">{{item.id }}---{{ item.selected }}</div> -->
   </div>
 </template>
@@ -53,16 +58,16 @@ export default {
       this.$store.state.car.forEach(item => {
         ids.push(item.id)
       });
-      if(ids.length <= 0) return
+      if (ids.length <= 0) return
       this.$http
-      .get('api/goods/getshopcarlist/' + ids.join(','))
-      .then(result => {
-        if(result.body.status === 0){
-          this.goodsInfo = result.body.message
-        }else{
-          Toast('获取购物车商品信息失败')
-        }
-      })
+        .get('api/goods/getshopcarlist/' + ids.join(','))
+        .then(result => {
+          if (result.data.status === 0) {
+            this.goodsInfo = result.data.message
+          } else {
+            Toast('获取购物车商品信息失败')
+          }
+        })
     },
     remove(id, index) {
       // 删除 state 中的商品信息，并删除 goodsInfo 中的商品信息
@@ -105,7 +110,9 @@ export default {
         color: red;
         font-weight: 700;
       }
-      a:focus, a:hover, a:visited {
+      a:focus,
+      a:hover,
+      a:visited {
         text-decoration: none;
         color: #007aff;
       }

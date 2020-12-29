@@ -1,14 +1,19 @@
 <template>
   <div class="goodsInfo-container">
     <!-- 加入购物车时的小球动画 -->
-    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter" >
-      <div class="ball" v-show="ballFlag" ref="ball"></div>
+    <transition @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter">
+      <div class="ball"
+           v-show="ballFlag"
+           ref="ball"></div>
     </transition>
     <!-- 商品轮播图区域 -->
     <div class="mui-card">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          <swiper :lunbotuList="lunbotu" :isFull="false"></swiper>
+          <swiper :lunbotuList="lunbotu"
+                  :isFull="false"></swiper>
         </div>
       </div>
     </div>
@@ -21,10 +26,15 @@
             市场价：<del>￥{{goodsInfo.market_price}}</del>&nbsp;&nbsp;&nbsp;销售价：<span class="now_price">￥{{goodsInfo.sell_price}}</span>
           </p>
           <!-- 数字输入按钮 -->
-          <p style="color: #000;">购买数量：<numBtn @getCount="getSelectedCount" :max="goodsInfo.stock_quantity"></numBtn></p>
+          <p style="color: #000;">购买数量：<numBtn @getCount="getSelectedCount"
+                    :max="goodsInfo.stock_quantity"></numBtn>
+          </p>
           <p>
-            <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
+            <mt-button type="primary"
+                       size="small">立即购买</mt-button>
+            <mt-button type="danger"
+                       size="small"
+                       @click="addToShopCar">加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -40,8 +50,14 @@
         </div>
       </div>
       <div class="mui-card-footer">
-        <mt-button type="primary" size="large" plain @click="goDesc(id)">图文详情</mt-button>
-        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
+        <mt-button type="primary"
+                   size="large"
+                   plain
+                   @click="goDesc(id)">图文详情</mt-button>
+        <mt-button type="danger"
+                   size="large"
+                   plain
+                   @click="goComment(id)">商品评论</mt-button>
       </div>
     </div>
   </div>
@@ -69,37 +85,38 @@ export default {
   methods: {
     getLunbotu() {
       this.$http
-      .get('api/getthumimages/' + this.id)
-      .then(result => {
-        if(result.body.status === 0){
-          // 先循环轮播图数组的每一项，为每一项添加一个 img 属性，因为轮播图组件中只认识 item.img 属性
-          result.body.message.forEach(item => {
-            item.img = item.src
-          })
-          this.lunbotu = result.body.message
-        }else{
-          Toast('获取轮播图数据失败')
-        }
-      })
+        .get('api/getthumimages/' + this.id)
+        .then(result => {
+          if (result.data.status === 0) {
+            // 先循环轮播图数组的每一项，为每一项添加一个 img 属性，因为轮播图组件中只认识 item.img 属性
+            result.data.message.forEach(item => {
+              item.img = item.src
+            })
+            // console.log(result.data)
+            this.lunbotu = result.data.message
+          } else {
+            Toast('获取轮播图数据失败')
+          }
+        })
     },
     getGoodsInfo() { // 获取商品参数信息
       this.$http
-      .get('api/goods/getinfo/' + this.id)
-      .then(result => {
-        if(result.body.status === 0) {
-          this.goodsInfo = result.body.message[0]
-        }else{
-          Toast('获取商品参数信息失败')
-        }
-      })
+        .get('api/goods/getinfo/' + this.id)
+        .then(result => {
+          if (result.data.status === 0) {
+            this.goodsInfo = result.data.message[0]
+          } else {
+            Toast('获取商品参数信息失败')
+          }
+        })
     },
     goDesc(id) {
       // 点击使用编程式导航跳转到 图文详情页面
-      this.$router.push({ name:'goodsDesc', params: { id } })
+      this.$router.push({ name: 'goodsDesc', params: { id } })
     },
     goComment(id) {
       // 点击使用编程式导航跳转到 商品评论页面
-      this.$router.push({ name:'goodsComment', params: { id } })
+      this.$router.push({ name: 'goodsComment', params: { id } })
     },
     addToShopCar() { // 添加到购物车小球动画
       this.ballFlag = !this.ballFlag
@@ -170,6 +187,5 @@ export default {
       margin: 15px 0;
     }
   }
-  
 }
 </style>
